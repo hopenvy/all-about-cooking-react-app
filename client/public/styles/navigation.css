@@ -1,0 +1,50 @@
+header,
+.footer {
+    background-color: #485771;
+    width: 100%;
+    overflow: hidden;
+    color: white;
+}
+
+.social li{
+    display: inline;
+    padding-left: 5%!important;
+}
+  
+a {
+    color: rgb(194, 192, 192)!important;
+    font-size: 20px;
+}
+  
+.header {
+    width: 100%!important;
+    margin-left: 5%!important;
+}
+  
+.header h1 {
+    font-size: 25px;
+    padding-top: 5%;
+}
+  
+.social {
+    padding-top: 5%;
+    font-size: 25px!important;
+}
+  
+.social a:hover{
+    text-decoration: none;
+    color:#e46c3d!important;
+ }
+  
+ li{
+    color: white;
+}
+
+.footer {
+    padding: 0.5em;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}
+
+
