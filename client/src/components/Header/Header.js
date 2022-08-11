@@ -11,9 +11,9 @@ const Header = () => {
                     <ul className="social">
                         <li> <Link to="/">Home</Link>
                         </li>
-                        <li> <Link to="/">Recipes</Link>
+                        <li> <Link to="/recipes">Recipes</Link>
                         </li>
-                        <li> <Link to="/">Add a new recipe</Link>
+                        <li> <Link to="/create">Add a new recipe</Link>
                         </li>
                         <li> <Link to="/register">Register</Link>
                         </li>

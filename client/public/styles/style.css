@@ -1,9 +1,14 @@
 @import "navigation.css";
 @import "registration.css";
+@import "recipes.css";
+@import "create-recipe.css";
 
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
 
 body{
   color: gray!important;
+  font-family: 'Nunito', sans-serif !important;
 }
 
 .carousel-inner img {
@@ -37,7 +42,7 @@ body{
     z-index: 10;
     padding-top: 20px;
     padding-bottom: 20px;
-    color: #fff;
+    color: grey;
     text-align: center;
 }
 
@@ -46,7 +51,11 @@ body{
   border-left: 2px solid gray;
   margin-left: 30%;
   text-align: left;
+  color: grey;
+  font-size: 25px;
 }
+
+
 
 .main a {
   background-color: rgba(241, 160, 73, 0.8)!important;
@@ -97,6 +106,7 @@ button {
   border-left: 3px solid #D36F6F;
   margin-left: 0!important;
 }
+
 
 .footer {
   padding: 0.5em;

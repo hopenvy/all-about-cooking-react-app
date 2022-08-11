@@ -8,11 +8,13 @@ const Register = () => {
         username: "",
         email: "",
         password: "",
+        confirmPassword: "",
     }, {
         username: "required",
         email: "required|email",
         age: "required",
         password: "required",
+        confirmPassword: "required",
     });
 
     console.log(fields)
@@ -33,6 +35,8 @@ const Register = () => {
                             type="email"
                             id="email"
                             name="email"
+                            onBlur={form.handleBlurEvent}
+                            onChange={form.handleChangeEvent}
                             placeholder="petar@email.com"
                         />
                         <label className="error">
@@ -47,6 +51,8 @@ const Register = () => {
                             type="text"
                             id="username"
                             name="username"
+                            onBlur={form.handleBlurEvent}
+                            onChange={form.handleChangeEvent}
                             placeholder="delicious101"
                         />
                         <label className="error">
@@ -62,6 +68,9 @@ const Register = () => {
                             name="password"
                             id="register-password"
                             placeholder="password"
+                            onBlur={form.handleBlurEvent}
+                            onChange={form.handleChangeEvent}
+                            value={fields.password}
                         />
                         <label className="error">
                             {errors.password
@@ -73,13 +82,16 @@ const Register = () => {
                         <label htmlFor="con-pass">Confirm Password:</label>
                         <input
                             type="password"
-                            name="confirm-password"
+                            name="confirmPassword"
                             id="confirm-password"
                             placeholder="repeat password"
+                            onBlur={form.handleBlurEvent}
+                            onChange={form.handleChangeEvent}
+                            value={fields.confirmPassword}
                         />
                         <label className="error">
-                            {errors.password
-                                ? errors.password
+                            {errors.confirmPassword
+                                ? errors.confirmPassword
                                 : ""}
                         </label>
                     </p>

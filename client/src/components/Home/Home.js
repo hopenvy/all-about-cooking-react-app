@@ -1,26 +1,28 @@
-const Home = () =>{
-    return (
-      <div>
-        
+import { Link } from 'react-router-dom'
+
+const Home = () => {
+  return (
+    <div>
+
       <div className="main">
         <div id="sliding" className="carousel slide" data-ride="carousel">
           <ul className="carousel-indicators">
           </ul>
           <div className="carousel-inner">
             <div className="carousel-item active">
-              <img src="images/1.jpg" alt="img2"/>
+              <img src="images/1.jpg" alt="img2" />
               <div className="carousel-caption">
                 <div className="line">
-                  <h3>Recipes</h3>
+                  <Link to="/recipes">Recipes</Link>
                   <p>Enjoy your life</p>
                 </div>
               </div>
             </div>
             <div className="carousel-item">
-              <img src="images/2.jpg"  alt="img3" />
+              <img src="images/2.jpg" alt="img3" />
               <div className="carousel-caption">
                 <div className="line">
-                  <h3>Post your own recipe</h3>
+                  <Link to="/create">Post your own recipe</Link>
                   <p>Enjoy your life</p>
                 </div>
               </div>
@@ -34,8 +36,8 @@ const Home = () =>{
           </a>
         </div>
       </div>
-      </div>
-    );
+    </div>
+  );
 };
 
 export default Home;
