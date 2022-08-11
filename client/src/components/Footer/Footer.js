@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const Footer = () => {
     return (
         <div className="footer">
@@ -9,15 +11,15 @@ const Footer = () => {
           </div>
           <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 container">
             <ul className="social">
-              <li> <a href="/"><i className="fab fa-facebook-f" /></a>
+              <li> <Link to="/"><i className="fab fa-facebook-f" /></Link>
               </li>
-              <li> <a href="/"><i className="fab fa-google-plus-g" /></a>
+              <li> <Link to="/"><i className="fab fa-google-plus-g" /></Link>
               </li>
-              <li> <a href="/"><i className="fab fa-twitter" /></a>
+              <li> <Link to="/"><i className="fab fa-twitter" /></Link>
               </li>
-              <li> <a href="/"><i className="fab fa-pinterest-p" /></a>
+              <li> <Link to="/"><i className="fab fa-pinterest-p" /></Link>
               </li>
-              <li> <a href="/"><i className="fab fa-instagram" /></a>
+              <li> <Link to="/"><i className="fab fa-instagram" /></Link>
               </li>
             </ul>
           </div>

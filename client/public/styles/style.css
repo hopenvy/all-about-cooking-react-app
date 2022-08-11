@@ -1,9 +1,10 @@
 @import "navigation.css";
+@import "registration.css";
+
 
 body{
   color: gray!important;
 }
-
 
 .carousel-inner img {
   width: 100%;
@@ -38,17 +39,17 @@ body{
     padding-bottom: 20px;
     color: #fff;
     text-align: center;
-  }
+}
 
-  .line {
-    padding: 4%;
-    border-left: 2px solid gray;
-    margin-left: 30%;
-    text-align: left;
-  }
+.line {
+  padding: 4%;
+  border-left: 2px solid gray;
+  margin-left: 30%;
+  text-align: left;
+}
 
 .main a {
-  background-color: rgba(247, 187, 124, 0.8)!important;
+  background-color: rgba(241, 160, 73, 0.8)!important;
   width: 30%;
   height: 25%;
 }
@@ -70,11 +71,11 @@ img {
   font-size: 18px;
 }
 
- button {
-      margin-left: 40%;
-      background-color: rgba(247, 187, 124, 0.8);
-      color: white;
-      padding: 2% 9% 2% 9%;
+button {
+  margin-left: 40%;
+  background-color: rgba(215, 125, 29, 0.8);
+  color: white;
+  padding: 2% 9% 2% 9%;
 }
 
 .text {
@@ -95,6 +96,13 @@ img {
 .third .line, .fourth .line {
   border-left: 3px solid #D36F6F;
   margin-left: 0!important;
+}
+
+.footer {
+  padding: 0.5em;
+  width: 100%;
+  left: 0;
+  bottom: 0;
 }
 
 
