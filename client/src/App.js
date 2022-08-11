@@ -4,6 +4,8 @@ import Home from './components/Home/Home';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Register from './components/Register/Register';
+import Login from './components/Login/Login';
+
 
 import './App.css';
 
@@ -17,6 +19,8 @@ function App() {
 
         <Route path='/' element={<Home />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
+
 
       </Routes>
 

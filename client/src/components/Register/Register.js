@@ -20,7 +20,6 @@ const Register = () => {
         <section id="register-page" className="content auth">
             <form
                 id="register"
-                className="myForm"
                 noValidate
                 autoComplete="off"
                 onSubmit={form.handleSubmit}
@@ -34,7 +33,7 @@ const Register = () => {
                             type="email"
                             id="email"
                             name="email"
-                            placeholder="petariliev@email.com"
+                            placeholder="petar@email.com"
                         />
                         <label className="error">
                             {errors.email
