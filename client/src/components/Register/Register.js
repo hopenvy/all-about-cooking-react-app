@@ -27,7 +27,7 @@ const Register = () => {
                 onSubmit={form.handleSubmit}
             >
                 <div className="register-container">
-                    <div className="brand-logo" />
+                    <div />
                     <h1>Register</h1>
                     <p>
                         <label htmlFor="email">Email:</label>

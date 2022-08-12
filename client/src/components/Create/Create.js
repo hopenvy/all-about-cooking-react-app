@@ -1,41 +1,53 @@
 import { useState } from 'react'
 import { useFormInputValidation } from "react-form-input-validation";
+import validator from 'validator';
 
 const Create = () => {
     const [fields, errors, form] = useFormInputValidation({
         dish: "",
         ingredients: "",
+        image: "",
     }, {
         dish: "required",
-        ingredients: 'required',
+        ingredients: "required",
+        image: "reqired",
     });
+
 
     const [list, setList] = useState([]);
 
     const [value, setValue] = useState("");
-    const addIngredient = () => {
-
+    const addIngredient = (e) => {
+        e.preventDefault();
         let tempArr = list;
         if (value !== '') {
             tempArr.push(value);
-
             setList(tempArr);
-
             setValue("")
         }
 
     };
 
     const deleteIngredient = (index) => {
-
         let temp = list.filter((item, i) => i !== index);
-
         setList(temp);
 
     };
 
-
     console.log(fields);
+    console.log(list);
+
+    const [errorMessage, setErrorMessage] = useState('')
+
+    const validate = (value) => {
+        console.log(value)
+
+        if (validator.isURL(value)) {
+            setErrorMessage(null);
+        } else {
+            setErrorMessage('Image url is not valid')
+        }
+    }
     return (
         <div>
             <section id="recipe-page" className="content auth">
@@ -46,7 +58,7 @@ const Create = () => {
                     onSubmit={form.handleSubmit}
                 >
                     <div className="recipe-container">
-                        <div className="brand-logo" />
+                        <div />
                         <h1>Create new recipe</h1>
                         <p>
                             <label htmlFor="recipe-name">Name of the dish:</label>
@@ -62,9 +74,8 @@ const Create = () => {
                                     ? errors.dish
                                     : ""}
                             </label>
-                        </p>
-                        <p>
-                            <label htmlFor="ingredients">Ingredients</label>
+                            <br />
+                            <label htmlFor="ingredients">Ingredients:</label>
                             <input
                                 type="text"
                                 id="ingredients"
@@ -76,17 +87,42 @@ const Create = () => {
                             />{" "}
                         </p>
 
-                        <ul className='list-ingredients'>{list.length > 0 && list.map((item, i) => <li>{item}  
-                        <button className="btn delete" onClick={() => deleteIngredient(i)}> Delete </button></li>)}
+                        <ul className='list-ingredients'>{list.length > 0 && list.map((item, i) => <li key={i}>{item}
+                            <button className="btn delete" onClick={() => deleteIngredient(i)}> Delete </button></li>)}
                         </ul>
 
                         <button
-                            className="btn submit"
+                            className="btn add"
                             onClick={addIngredient}
                         >
                             Add ingredients
                         </button>
-
+                        <p>
+                            <label htmlFor="recipe-img">Photo:</label>
+                            <input
+                                type="text"
+                                id="image"
+                                name="image"
+                                onChange={(e) => validate(e.target.value)}
+                                placeholder="Upload a photo..."
+                            />
+                            <label className="error">
+                                {errorMessage
+                                    ? errorMessage
+                                    : ""}
+                                {errors.image
+                                    ? errors.image
+                                    : ""}
+                            </label>
+                        </p>
+                        <br />
+                        <p>
+                            <input
+                                className="btn submit"
+                                type="submit"
+                                value="Add recipe"
+                            />
+                        </p>
 
                     </div >
                 </form >
