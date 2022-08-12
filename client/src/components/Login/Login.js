@@ -15,10 +15,13 @@ const Login = () => {
         password: "required",
     });
 
+    console.log(useFormInputValidation())
+
     console.log(fields);
     const { loginHandler } = useContext(AuthContext)
     const navigate = useNavigate()
 
+    
     const onSubmit = (e) => {
         e.preventDefault();
 
@@ -26,6 +29,7 @@ const Login = () => {
             email,
             password
         } = Object.fromEntries(new FormData(e.target));
+
 
         authService.login(email, password)
             .then(authData => {
@@ -35,6 +39,7 @@ const Login = () => {
             .catch(() => {
                 navigate('/404');
             })
+
     };
 
     return (
@@ -77,7 +82,7 @@ const Login = () => {
                                 : ""}
                         </label>
                     </p>
-                    <input type="submit" onSubmit={form.handleSubmit} className="btn submit" value="Login" />
+                    <input type="submit" className="btn submit" value="Login" />
                     <p className="field">
                         <span>
                             Click <Link to="/register">here</Link> if you don't have profile

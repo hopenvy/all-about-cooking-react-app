@@ -14,9 +14,10 @@ import Create from './components/Create/Create';
 
 
 import './App.css';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 function App() {
-  const [auth, setAuth] = useState({});
+  const [auth, setAuth] = useLocalStorage('auth', {});
 
   const loginHandler = (authData) => {
     setAuth(authData)

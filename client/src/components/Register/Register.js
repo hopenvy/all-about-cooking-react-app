@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom'
-
+import { Link, useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
 import { useFormInputValidation } from "react-form-input-validation";
+import * as authService from '../../services/authService'
+import { AuthContext } from '../../context/AuthContext';
 
 
 const Register = () => {
@@ -12,19 +14,46 @@ const Register = () => {
     }, {
         username: "required",
         email: "required|email",
-        age: "required",
         password: "required",
         confirmPassword: "required",
     });
+    console.log(fields);
 
-    console.log(fields)
+    const { loginHandler } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+
+        const email = formData.get('email');
+        const password = formData.get('password');
+        const confirmPassword = formData.get('confirmPassword');
+        if (password !== confirmPassword) {
+            return;
+        }
+
+            console.log(form.isValidForm);
+        if (form.isValidForm) {
+            authService.register(email, password)
+                .then(authData => {
+                    loginHandler(authData);
+                    navigate('/')
+                });
+        } else {
+            return;
+        }
+    }
+
     return (
+
         <section id="register-page" className="content auth">
             <form
                 id="register"
                 noValidate
                 autoComplete="off"
-                onSubmit={form.handleSubmit}
+                onSubmit={onSubmit}
             >
                 <div className="register-container">
                     <div />
@@ -83,7 +112,7 @@ const Register = () => {
                         <input
                             type="password"
                             name="confirmPassword"
-                            id="confirm-password"
+                            id="confirmPassword"
                             placeholder="repeat password"
                             onBlur={form.handleBlurEvent}
                             onChange={form.handleChangeEvent}
@@ -96,11 +125,7 @@ const Register = () => {
                         </label>
                     </p>
                     <p>
-                        <input
-                            className="btn submit"
-                            type="submit"
-                            value="Register"
-                        />
+                        <input type="submit" className="btn submit" value="Register" />
                     </p>
                     <p className="field">
                         <span>
@@ -110,6 +135,7 @@ const Register = () => {
                 </div>
             </form>
         </section>
+
     );
 };
 
