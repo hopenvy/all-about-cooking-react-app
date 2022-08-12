@@ -36,14 +36,11 @@ label {
     margin-bottom: 8px;
     font-size: 37px;
     color: #485771;
-    margin-top: 13px;
+    margin-top: 16px;
     text-align: center;
 }
 
 
-label:nth-of-type(2) {
-    margin-top: 20px;
-}
 
 input::placeholder {
     color: rgba(115, 111, 111, 0.678);
@@ -100,15 +97,26 @@ input[type="text"] {
     font-size: 28px;
 }
 
-.delete {
-    margin-left: 50px!important;
-    padding: 2px 20px!important;
-    font-size: 20px!important;
-    color: #303a41!important;
+
+.recipe-container #preparation {
+    height: 180px !important;
+    padding: 0px 5px 120px 15px;
+    text-align: left;   
 }
 
-.add{
-    padding: 2px 20px!important;
-    font-size: 25px!important;
-    color: #303a41!important;
+#preparation::placeholder {
+    text-align: left;
+}
+
+.delete {
+    margin-left: 50px !important;
+    padding: 2px 20px !important;
+    font-size: 20px !important;
+    color: #303a41 !important;
+}
+
+.add {
+    padding: 2px 20px !important;
+    font-size: 25px !important;
+    color: #303a41 !important;
 }

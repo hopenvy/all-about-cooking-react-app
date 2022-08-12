@@ -7,10 +7,12 @@ const Create = () => {
         dish: "",
         ingredients: "",
         image: "",
+        preparation: "",
     }, {
         dish: "required",
         ingredients: "required",
         image: "reqired",
+        preparation: "required",
     });
 
 
@@ -116,6 +118,22 @@ const Create = () => {
                             </label>
                         </p>
                         <br />
+                        <p>
+                            <label htmlFor="preparation">Preparation:</label>
+                            <input
+                                type="text"
+                                id="preparation"
+                                name="preparation"
+                                onBlur={form.handleBlurEvent}
+                                onChange={form.handleChangeEvent}
+                                placeholder="Add the..."
+                            />
+                        </p>
+                        <label className="error">
+                                {errors.preparation
+                                    ? errors.preparation
+                                    : ""}
+                            </label>
                         <p>
                             <input
                                 className="btn submit"
