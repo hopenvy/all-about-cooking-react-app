@@ -99,15 +99,22 @@ input[type="email"] {
 
 
 .field>span {
-    position: absolute;
-    font-size: 20px;
-    bottom: 17px;
-    right: 8px;
+    font-size: 26px;
     text-decoration: none;
     color: #364257;
     background: rgb(215, 112, 22);
     border-radius: 4px;
     padding: 5px 15px;
+}
+
+.field {
+    margin-top: 40px;
+}
+
+.field>span>a {
+    color: black!important;
+    font-size: 28px;
+    font-weight: bold;
 }
 
 .error {
