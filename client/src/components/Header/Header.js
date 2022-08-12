@@ -25,7 +25,7 @@ const Header = () => {
                                     </div>
                                     {user.email
                                         ? <div className="child">
-                                            <li> <Link to="/create">Add a new recipe</Link></li>
+                                            <li> <Link to="/create">Add new recipe</Link></li>
                                             <li> <Link to="/logout">Logout</Link></li>
                                         </div>
                                         :

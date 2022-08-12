@@ -1,16 +1,37 @@
 import { useState } from 'react'
 import { useFormInputValidation } from "react-form-input-validation";
 import validator from 'validator';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+
+import * as dishService from '../../services/dishService'
 
 
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
-const Create = () => {
+const Create = ({ addDishHandler }) => {
+    const [list, setList] = useState([]);
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        console.log(e.target)
+
+        const dishData = Object.fromEntries(new FormData(e.target));
+        dishData.ingredients = [];
+        dishData.ingredients.push(list)
+        console.log(dishData)
+        console.log(list)
+
+        dishService.create(dishData)
+            .then((res) => {
+                addDishHandler(res)
+            });
+
+    }
+
     const [fields, errors, form] = useFormInputValidation({
         dish: "",
-        ingredients: "",
+        ingredients: [],
         image: "",
         preparation: "",
     }, {
@@ -21,7 +42,6 @@ const Create = () => {
     });
 
 
-    const [list, setList] = useState([]);
 
     const [value, setValue] = useState("");
     const addIngredient = (e) => {
@@ -32,13 +52,11 @@ const Create = () => {
             setList(tempArr);
             setValue("")
         }
-
     };
 
     const deleteIngredient = (index) => {
         let temp = list.filter((item, i) => i !== index);
         setList(temp);
-
     };
 
     console.log(fields);
@@ -58,16 +76,13 @@ const Create = () => {
     const { user } = useContext(AuthContext)
 
     return (
-
-
-
         <section id="recipe-page" className="content auth">
 
             <form
                 id="create-recipe"
                 noValidate
                 autoComplete="off"
-                onSubmit={form.handleSubmit}
+                onSubmit={onSubmit}
             >
                 {
                     user.email
@@ -91,6 +106,8 @@ const Create = () => {
                                         : ""}
                                 </label>
                                 <br />
+                            </p>
+                            <p>
                                 <label htmlFor="ingredients">Ingredients:</label>
                                 <input
                                     type="text"
@@ -100,11 +117,13 @@ const Create = () => {
                                     onBlur={form.handleBlurEvent}
                                     value={value}
                                     onChange={(e) => setValue(e.target.value)}
-                                />{" "}
+                                />{[]}
                             </p>
 
-                            <ul className='list-ingredients'>{list.length > 0 && list.map((item, i) => <li key={i}>{item}
-                                <button className="btn delete" onClick={() => deleteIngredient(i)}> Delete </button></li>)}
+                            <ul className='list-ingredients'>{list.length > 0 && list.map((item, i) => <div><li key={i}>{item}</li>
+                                <button className="btn delete" onClick={() => deleteIngredient(i)}> Delete </button></div>
+
+                            )}
                             </ul>
 
                             <button
