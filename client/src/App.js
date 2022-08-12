@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
 import { AuthContext } from './context/AuthContext';
 
 import Home from './components/Home/Home';
@@ -23,7 +22,7 @@ function App() {
     setAuth(authData)
   }
 
-  const logoutHandler = (authData) => {
+  const logoutHandler = () => {
     setAuth({})
   }
 
