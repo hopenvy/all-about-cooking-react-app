@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom'
-import { useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import { useAuthContext } from '../../context/AuthContext';
 
 const Header = () => {
-    const { user } = useContext(AuthContext)
+    const { user } = useAuthContext();
     return (
         <div>
             <header>
@@ -17,7 +16,7 @@ const Header = () => {
                             <ul className="social">
                                 <div className="parent">
                                     <div className="child">
-                                        {user.email && <span>{user.email}</span>}
+                                    {user.email && <span>{user.email}</span>}
                                         <li> <Link to="/">Home</Link>
                                         </li>
                                         <li> <Link to="/recipes">Recipes</Link>
@@ -25,13 +24,13 @@ const Header = () => {
                                     </div>
                                     {user.email
                                         ? <div className="child">
-                                            <li> <Link to="/create">Add new recipe</Link></li>
+                                            <li> <Link to="/create">Add a new recipe</Link></li>
                                             <li> <Link to="/logout">Logout</Link></li>
                                         </div>
                                         :
                                         <div className="child">
-                                            <li> <Link to="/register">Register</Link></li>
                                             <li> <Link to="/login">Login</Link></li>
+                                            <li> <Link to="/register">Register</Link></li>
                                         </div>
                                     }
                                 </div>
@@ -43,6 +42,7 @@ const Header = () => {
                 <br />
             </header >
         </div>
+
     );
 };
 

@@ -1,37 +1,11 @@
 import { useState } from 'react'
 import { useFormInputValidation } from "react-form-input-validation";
 import validator from 'validator';
-import { Link } from 'react-router-dom';
 
-import * as dishService from '../../services/dishService'
-
-
-import { useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
-
-const Create = ({ addDishHandler }) => {
-    const [list, setList] = useState([]);
-
-    const onSubmit = (e) => {
-        e.preventDefault();
-        console.log(e.target)
-
-        const dishData = Object.fromEntries(new FormData(e.target));
-        dishData.ingredients = [];
-        dishData.ingredients.push(list)
-        console.log(dishData)
-        console.log(list)
-
-        dishService.create(dishData)
-            .then((res) => {
-                addDishHandler(res)
-            });
-
-    }
-
+const Create = () => {
     const [fields, errors, form] = useFormInputValidation({
         dish: "",
-        ingredients: [],
+        ingredients: "",
         image: "",
         preparation: "",
     }, {
@@ -42,6 +16,7 @@ const Create = ({ addDishHandler }) => {
     });
 
 
+    const [list, setList] = useState([]);
 
     const [value, setValue] = useState("");
     const addIngredient = (e) => {
@@ -52,11 +27,13 @@ const Create = ({ addDishHandler }) => {
             setList(tempArr);
             setValue("")
         }
+
     };
 
     const deleteIngredient = (index) => {
         let temp = list.filter((item, i) => i !== index);
         setList(temp);
+
     };
 
     console.log(fields);
@@ -73,123 +50,104 @@ const Create = ({ addDishHandler }) => {
             setErrorMessage('Image url is not valid')
         }
     }
-    const { user } = useContext(AuthContext)
-
     return (
-        <section id="recipe-page" className="content auth">
-
-            <form
-                id="create-recipe"
-                noValidate
-                autoComplete="off"
-                onSubmit={onSubmit}
-            >
-                {
-                    user.email
-                        ?
-                        <div className="recipe-container">
-                            <div />
-                            <h1>Create new recipe</h1>
-                            <p>
-                                <label htmlFor="recipe-name">Name of the dish:</label>
-                                <input
-                                    type="text"
-                                    id="dish"
-                                    name="dish"
-                                    placeholder="Salat"
-                                    onBlur={form.handleBlurEvent}
-                                    onChange={form.handleChangeEvent}
-                                />
-                                <label className="error">
-                                    {errors.dish
-                                        ? errors.dish
-                                        : ""}
-                                </label>
-                                <br />
-                            </p>
-                            <p>
-                                <label htmlFor="ingredients">Ingredients:</label>
-                                <input
-                                    type="text"
-                                    id="ingredients"
-                                    name="ingredients"
-                                    placeholder="2 glass of wine"
-                                    onBlur={form.handleBlurEvent}
-                                    value={value}
-                                    onChange={(e) => setValue(e.target.value)}
-                                />{[]}
-                            </p>
-
-                            <ul className='list-ingredients'>{list.length > 0 && list.map((item, i) => <div><li key={i}>{item}</li>
-                                <button className="btn delete" onClick={() => deleteIngredient(i)}> Delete </button></div>
-
-                            )}
-                            </ul>
-
-                            <button
-                                className="btn add"
-                                onClick={addIngredient}
-                            >
-                                Add ingredients
-                            </button>
-                            <p>
-                                <label htmlFor="recipe-img">Photo:</label>
-                                <input
-                                    type="text"
-                                    id="image"
-                                    name="image"
-                                    onChange={(e) => validate(e.target.value)}
-                                    placeholder="Upload a photo..."
-                                />
-                                <label className="error">
-                                    {errorMessage
-                                        ? errorMessage
-                                        : ""}
-                                    {errors.image
-                                        ? errors.image
-                                        : ""}
-                                </label>
-                            </p>
-                            <br />
-                            <p>
-                                <label htmlFor="preparation">Preparation:</label>
-                                <input
-                                    type="text"
-                                    id="preparation"
-                                    name="preparation"
-                                    onBlur={form.handleBlurEvent}
-                                    onChange={form.handleChangeEvent}
-                                    placeholder="Add the..."
-                                />
-                            </p>
+        <div>
+            <section id="recipe-page" className="content auth">
+                <form
+                    id="create-recipe"
+                    noValidate
+                    autoComplete="off"
+                    onSubmit={form.handleSubmit}
+                >
+                    <div className="recipe-container">
+                        <div />
+                        <h1>Create new recipe</h1>
+                        <p>
+                            <label htmlFor="recipe-name">Name of the dish:</label>
+                            <input
+                                type="text"
+                                id="dish"
+                                name="dish"
+                                onBlur={form.handleBlurEvent}
+                                onChange={form.handleChangeEvent}
+                            />
                             <label className="error">
+                                {errors.dish
+                                    ? errors.dish
+                                    : ""}
+                            </label>
+                            <br />
+                            <label htmlFor="ingredients">Ingredients:</label>
+                            <input
+                                type="text"
+                                id="ingredients"
+                                name="ingredients"
+                                placeholder="2 glass of wine"
+                                onBlur={form.handleBlurEvent}
+                                value={value}
+                                onChange={(e) => setValue(e.target.value)}
+                            />{" "}
+                        </p>
+
+                        <ul className='list-ingredients'>{list.length > 0 && list.map((item, i) => <li key={i}>{item}
+                            <button className="btn delete" onClick={() => deleteIngredient(i)}> Delete </button></li>)}
+                        </ul>
+
+                        <button
+                            className="btn add"
+                            onClick={addIngredient}
+                        >
+                            Add ingredients
+                        </button>
+                        <p>
+                            <label htmlFor="recipe-img">Photo:</label>
+                            <input
+                                type="text"
+                                id="image"
+                                name="image"
+                                onChange={(e) => validate(e.target.value)}
+                                placeholder="Upload a photo..."
+                            />
+                            <label className="error">
+                                {errorMessage
+                                    ? errorMessage
+                                    : ""}
+                                {errors.image
+                                    ? errors.image
+                                    : ""}
+                            </label>
+                        </p>
+                        <br />
+                        <p>
+                            <label htmlFor="preparation">Preparation:</label>
+                            <input
+                                type="text"
+                                id="preparation"
+                                name="preparation"
+                                onBlur={form.handleBlurEvent}
+                                onChange={form.handleChangeEvent}
+                                placeholder="Add the..."
+                            />
+                        </p>
+                        <label className="error">
                                 {errors.preparation
                                     ? errors.preparation
                                     : ""}
                             </label>
-                            <p>
-                                <input
-                                    className="btn submit"
-                                    type="submit"
-                                    value="Add recipe"
-                                />
-                            </p>
+                        <p>
+                            <input
+                                className="btn submit"
+                                type="submit"
+                                value="Add recipe"
+                            />
+                        </p>
 
-                        </div >
-                        :
-                        <div className="recipe-container span">
-                            <span>Back to <Link to="/">Home</Link></span>
-                            <br />
-                            <span>Click <Link to="/register">Here</Link> to register so you can post your recipe</span>
-                            <br />
-                            <span>Click <Link to="/login">Here</Link> to login so you can post your recipe</span>
-                        </div>
-                }
-            </form >
-        </section >
+                    </div >
+                </form >
+            </section >
 
-
+        </div >
     );
 };
 
-export default Create; 
+export default Create;

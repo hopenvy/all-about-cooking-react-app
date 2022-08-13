@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
-import * as authService from '../../services/authService'
+
+import { AuthContext } from "../../context/AuthContext";
+import * as authService from "../../services/authService";
 
 import { useFormInputValidation } from "react-form-input-validation";
 
@@ -18,30 +19,28 @@ const Login = () => {
     console.log(useFormInputValidation())
 
     console.log(fields);
-    const { loginHandler } = useContext(AuthContext)
-    const navigate = useNavigate()
-
+ 
     
+    const { userLogin } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const onSubmit = (e) => {
         e.preventDefault();
 
         const {
             email,
-            password
+            password,
         } = Object.fromEntries(new FormData(e.target));
-
 
         authService.login(email, password)
             .then(authData => {
-                loginHandler(authData);
-                navigate('/')
+                userLogin(authData);
+                navigate('/');
             })
             .catch(() => {
                 navigate('/404');
-            })
-
+            });
     };
-
     return (
         < section id="login-page" className="auth" >
             <form id="login"

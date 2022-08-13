@@ -1,11 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useContext } from 'react'
 import { useFormInputValidation } from "react-form-input-validation";
-import * as authService from '../../services/authService'
-import { AuthContext } from '../../context/AuthContext';
+
+import * as authService from "../../services/authService";
+import { withAuth } from "../../context/AuthContext";
 
 
-const Register = () => {
+const Register = ({ auth }) => {
+
     const [fields, errors, form] = useFormInputValidation({
         username: "",
         email: "",
@@ -19,7 +20,6 @@ const Register = () => {
     });
     console.log(fields);
 
-    const { loginHandler } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const onSubmit = (e) => {
@@ -30,20 +30,21 @@ const Register = () => {
         const email = formData.get('email');
         const password = formData.get('password');
         const confirmPassword = formData.get('confirmPassword');
+
+
         if (password !== confirmPassword) {
             return;
         }
 
-            console.log(form.isValidForm);
-        if (form.isValidForm) {
-            authService.register(email, password)
-                .then(authData => {
-                    loginHandler(authData);
-                    navigate('/')
-                });
-        } else {
-            return;
-        }
+        console.log(email)
+        console.log(password)
+
+
+        authService.register(email, password)
+            .then(authData => {
+                auth.userLogin(authData);
+                navigate('/');
+            });
     }
 
     return (
@@ -125,7 +126,7 @@ const Register = () => {
                         </label>
                     </p>
                     <p>
-                        <input type="submit" className="btn submit" value="Register" />
+                        <input className="btn submit" type="submit" value="Register" />
                     </p>
                     <p className="field">
                         <span>
@@ -141,4 +142,7 @@ const Register = () => {
 
 
 
-export default Register;
+
+const RegisterWithAuth = withAuth(Register);
+
+export default RegisterWithAuth;
