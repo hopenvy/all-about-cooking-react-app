@@ -1,0 +1,14 @@
+
+.line a {
+    text-decoration: none !important;
+    background-color: rgba(247, 187, 124, 0) !important;
+    color:  rgb(107, 106, 106) !important;
+    font-size: 50px;
+    z-index: 11px !important;
+}
+
+.line a:hover{
+    text-decoration: none;
+    color: #3e4b61!important;
+    font-size: 56px!important;
+}
