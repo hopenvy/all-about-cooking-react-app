@@ -16,30 +16,31 @@ const Login = () => {
         password: "required",
     });
 
-    console.log(useFormInputValidation())
-
     console.log(fields);
- 
-    
+
+
     const { userLogin } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
+        const isValid = await form.validate(e);
+        if (isValid) {
 
-        const {
-            email,
-            password,
-        } = Object.fromEntries(new FormData(e.target));
+            const {
+                email,
+                password,
+            } = Object.fromEntries(new FormData(e.target));
 
-        authService.login(email, password)
-            .then(authData => {
-                userLogin(authData);
-                navigate('/');
-            })
-            .catch(() => {
-                navigate('/404');
-            });
+            authService.login(email, password)
+                .then(authData => {
+                    userLogin(authData);
+                    navigate('/');
+                })
+                .catch(() => {
+                    navigate('/404');
+                });
+        }
     };
     return (
         < section id="login-page" className="auth" >

@@ -7,6 +7,9 @@ import { withAuth } from "../../context/AuthContext";
 
 const Register = ({ auth }) => {
 
+
+    const navigate = useNavigate();
+
     const [fields, errors, form] = useFormInputValidation({
         username: "",
         email: "",
@@ -17,34 +20,32 @@ const Register = ({ auth }) => {
         email: "required|email",
         password: "required",
         confirmPassword: "required",
-    });
+    })
     console.log(fields);
 
-    const navigate = useNavigate();
-
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
+        const isValid = await form.validate(e);
+        if (isValid) {
+            const formData = new FormData(e.target);
 
-        const formData = new FormData(e.target);
-
-        const email = formData.get('email');
-        const password = formData.get('password');
-        const confirmPassword = formData.get('confirmPassword');
+            const email = formData.get('email');
+            const password = formData.get('password');
+            const confirmPassword = formData.get('confirmPassword');
 
 
-        if (password !== confirmPassword) {
-            return;
+            if (password !== confirmPassword) {
+                return;
+            }
+
+            console.log(email)
+            console.log(password)
+            authService.register(email, password)
+                .then(authData => {
+                    auth.userLogin(authData);
+                    navigate('/');
+                });
         }
-
-        console.log(email)
-        console.log(password)
-
-
-        authService.register(email, password)
-            .then(authData => {
-                auth.userLogin(authData);
-                navigate('/');
-            });
     }
 
     return (
