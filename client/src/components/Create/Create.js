@@ -1,6 +1,9 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useFormInputValidation } from "react-form-input-validation";
 import validator from 'validator';
+
+import { DishContext } from '../../context/DishContext';
+import * as dishService from '../../services/dishService';
 
 const Create = () => {
     const [fields, errors, form] = useFormInputValidation({
@@ -50,14 +53,33 @@ const Create = () => {
             setErrorMessage('Image url is not valid')
         }
     }
+    const { dishAdd } = useContext(DishContext);
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        const isValid = await form.validate(e);
+        if (isValid) {
+            const dishData = Object.fromEntries(new FormData(e.target));
+            dishData.ingredients = []
+            dishData.ingredients.push(list)
+            console.log(dishData)
+
+            dishService.create(dishData)
+                .then(result => {
+                    dishAdd(result)
+                });
+        }
+
+    };
     return (
+
         <div>
             <section id="recipe-page" className="content auth">
                 <form
                     id="create-recipe"
                     noValidate
                     autoComplete="off"
-                    onSubmit={form.handleSubmit}
+                    onSubmit={onSubmit}
                 >
                     <div className="recipe-container">
                         <div />
@@ -130,10 +152,10 @@ const Create = () => {
                             />
                         </p>
                         <label className="error">
-                                {errors.preparation
-                                    ? errors.preparation
-                                    : ""}
-                            </label>
+                            {errors.preparation
+                                ? errors.preparation
+                                : ""}
+                        </label>
                         <p>
                             <input
                                 className="btn submit"
