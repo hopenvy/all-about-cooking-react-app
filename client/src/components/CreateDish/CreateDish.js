@@ -1,11 +1,19 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
+
 import { useFormInputValidation } from "react-form-input-validation";
 import validator from 'validator';
+
+import { useContext } from 'react';
 
 import { DishContext } from '../../context/DishContext';
 import * as dishService from '../../services/dishService';
 
-const Create = () => {
+
+
+const CreateDish = () => {
+
+    const { dishAdd } = useContext(DishContext);
+
     const [fields, errors, form] = useFormInputValidation({
         dish: "",
         ingredients: "",
@@ -53,24 +61,25 @@ const Create = () => {
             setErrorMessage('Image url is not valid')
         }
     }
-    const { dishAdd } = useContext(DishContext);
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        const isValid = await form.validate(e);
-        if (isValid) {
-            const dishData = Object.fromEntries(new FormData(e.target));
-            dishData.ingredients = []
-            dishData.ingredients.push(list)
-            console.log(dishData)
+        //const isValid = await form.validate(e);
+        const dishData = Object.fromEntries(new FormData(e.target));
+        dishData.ingredients = []
+        dishData.ingredients.push(list)
 
-            dishService.create(dishData)
-                .then(result => {
-                    dishAdd(result)
-                });
-        }
+        
+        console.log(dishData)
 
+        dishService.create(dishData)
+        .then(result => {
+            dishAdd(result)
+        });
     };
+
+
+
     return (
 
         <div>
@@ -149,6 +158,7 @@ const Create = () => {
                                 onBlur={form.handleBlurEvent}
                                 onChange={form.handleChangeEvent}
                                 placeholder="Add the..."
+                                defaultValue={''}
                             />
                         </p>
                         <label className="error">
@@ -172,4 +182,4 @@ const Create = () => {
     );
 };
 
-export default Create;
+export default CreateDish;

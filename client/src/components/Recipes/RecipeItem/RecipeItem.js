@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom'
 
 const RecipeItem = ({ dish }) => {
+    console.log(dish)
     return (
         <ul className="list-recipes">
             <li>

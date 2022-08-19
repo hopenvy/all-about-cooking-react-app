@@ -7,7 +7,7 @@ export const useLocalStorage = (key, defaultValue) => {
         console.log(storedData)
         console.log(defaultValue)
 
-        return storedData ? JSON.stringify(storedData) : defaultValue;
+        return storedData ? JSON.parse(storedData) : defaultValue;
 
     });
 

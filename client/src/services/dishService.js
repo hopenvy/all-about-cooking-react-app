@@ -1,13 +1,13 @@
 import * as request from './requester';
 
-const baseUrl = 'http://localhost:3030/data';
+const baseUrl = 'http://localhost:3030/data/dishes';
 
-export const getAll = () => request.get(`${baseUrl}`);
+export const getAll = () => request.get(baseUrl);
 
-export const getOne = (dishId) => request.get(`${baseUrl}/dishes/${dishId}`);
+export const getOne = (dishId) => request.get(`${baseUrl}/${dishId}`);
 
-export const create = (dishData) => request.post(`${baseUrl}/dishes`, dishData);
+export const create = (dishData) => request.post(baseUrl, dishData);
 
-export const edit = (dishId, dishData) => request.put(`${baseUrl}/dishes/${dishId}`, dishData);
+export const edit = (dishId, dishData) => request.put(`${baseUrl}/${dishId}`, dishData);
 
-export const remove = (dishId) => request.del(`${baseUrl}/dishes/${dishId}`);
+export const remove = (dishId) => request.del(`${baseUrl}/${dishId}`);
