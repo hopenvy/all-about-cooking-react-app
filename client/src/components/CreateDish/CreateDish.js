@@ -44,7 +44,6 @@ const CreateDish = () => {
     const deleteIngredient = (index) => {
         let temp = list.filter((item, i) => i !== index);
         setList(temp);
-
     };
 
     console.log(fields);
@@ -121,7 +120,7 @@ const CreateDish = () => {
                         </p>
 
                         <ul className='list-ingredients'>{list.length > 0 && list.map((item, i) => <li key={i}>{item}
-                            <button className="btn delete" onClick={() => deleteIngredient(i)}> Delete </button></li>)}
+                            <button className="btn delete" onClick={() => deleteIngredient(i)}> Delete </button><br/></li> )}
                         </ul>
 
                         <button
@@ -151,8 +150,7 @@ const CreateDish = () => {
                         <br />
                         <p>
                             <label htmlFor="preparation">Preparation:</label>
-                            <input
-                                type="text"
+                            <textarea
                                 id="preparation"
                                 name="preparation"
                                 onBlur={form.handleBlurEvent}

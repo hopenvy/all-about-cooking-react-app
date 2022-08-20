@@ -13,7 +13,8 @@ import Logout from './components/Logout/Logout';
 import Recipes from './components/Recipes/Recipes';
 import CreateDish from './components/CreateDish/CreateDish';
 import PrivateRoute from "./components/common/PrivateRoute";
-import uniqid from 'uniqid';
+import DishDetails from "./components/DishDetails/DishDetails";
+//import uniqid from 'uniqid';
 
 
 import './App.css';
@@ -28,13 +29,24 @@ function App() {
   console.log(dishes)
   const navigate = useNavigate();
 
+  const addComment = (dishId, comment) => {
+    setDishes(state => {
+      const dish = state.find(x => x._id === dishId);
+
+      const comments = dish.comments || [];
+      comments.push(comment)
+
+      return [
+        ...state.filter(x => x._id !== dishId),
+        { ...dish, comments },
+      ];
+    });
+  };
+
   const dishAdd = (dishData) => {
     setDishes(state => [
       state,
-      {
-      ...dishData,
-      _id: uniqid()
-      }
+      dishData,
     ]);
 
     navigate('/recipes');
@@ -53,7 +65,7 @@ function App() {
       <div className="App">
 
         <Header />
-        <DishContext.Provider value={{ dishes, dishAdd }}>
+        <DishContext.Provider value={{ dishes, dishAdd, addComment }}>
 
           <Routes>
             <Route path='/' element={<Home />} />
@@ -69,12 +81,13 @@ function App() {
             <Route element={<PrivateRoute />}>
               <Route path="/logout" element={<Logout />} />
             </Route>
+            <Route path="/recipes/:dishId" element={<DishDetails dishes={dishes} addComment={addComment} />} />
 
           </Routes>
         </DishContext.Provider>
         <Footer />
       </div>
-    </AuthProvider>
+    </AuthProvider >
 
   );
 }
