@@ -13,6 +13,12 @@ const RecipeItem = ({ dish }) => {
                         Details
                     </Link>
                 </div>
+                
+                {dish.comments
+                    ? <div><label htmlFor="comments">Comments:</label>{dish.comments.map((item, i) => <p key={i}>{item}</p>)}</div>
+                    : <div><label htmlFor="comments">Comments:</label><p>No comments yet.</p></div>
+                }
+
             </li>
 
         </ul>

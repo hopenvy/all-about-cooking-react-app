@@ -10,6 +10,8 @@
 body {
   color: gray !important;
   font-family: 'Nunito', sans-serif !important;
+  background-color: rgba(247, 187, 124, 0.8) !important;
+
 }
 
 .carousel-inner img {
@@ -111,10 +113,8 @@ button {
 
 
 .footer {
-  padding-top: 0.5em;
-  padding-bottom: 6.5em;
+  height: 10.5rem;
   width: 100%;
-  left: 0;
   bottom: 0;
 }
 

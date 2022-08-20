@@ -61,20 +61,23 @@ const CreateDish = () => {
         }
     }
 
-    const onSubmit = async (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
-        //const isValid = await form.validate(e);
-        const dishData = Object.fromEntries(new FormData(e.target));
-        dishData.ingredients = []
-        dishData.ingredients.push(list)
+       // const isValid = await form.validate(e);
+            const dishData = Object.fromEntries(new FormData(e.target));
+            dishData.ingredients = []
+            dishData.ingredients.push(list)
 
-        
-        console.log(dishData)
 
-        dishService.create(dishData)
-        .then(result => {
-            dishAdd(result)
-        });
+            console.log(dishData)
+
+            dishService.create(dishData)
+                .then(result => {
+                    dishAdd(result)
+                });
+      
+
+
     };
 
 
@@ -120,7 +123,7 @@ const CreateDish = () => {
                         </p>
 
                         <ul className='list-ingredients'>{list.length > 0 && list.map((item, i) => <li key={i}>{item}
-                            <button className="btn delete" onClick={() => deleteIngredient(i)}> Delete </button><br/></li> )}
+                            <button className="btn delete" onClick={() => deleteIngredient(i)}> Delete </button><br /></li>)}
                         </ul>
 
                         <button

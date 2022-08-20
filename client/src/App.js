@@ -29,12 +29,14 @@ function App() {
   console.log(dishes)
   const navigate = useNavigate();
 
+  
   const addComment = (dishId, comment) => {
     setDishes(state => {
       const dish = state.find(x => x._id === dishId);
 
       const comments = dish.comments || [];
       comments.push(comment)
+      navigate('/recipes');
 
       return [
         ...state.filter(x => x._id !== dishId),
@@ -52,6 +54,14 @@ function App() {
     navigate('/recipes');
   };
 
+  const dishRemove = (dishId) => {
+    setDishes(state => [
+      state,
+      dishId,
+    ]);
+  }
+
+
   useEffect(() => {
     dishService.getAll()
       .then(result => {
@@ -65,7 +75,7 @@ function App() {
       <div className="App">
 
         <Header />
-        <DishContext.Provider value={{ dishes, dishAdd, addComment }}>
+        <DishContext.Provider value={{ dishes, dishAdd, dishRemove }}>
 
           <Routes>
             <Route path='/' element={<Home />} />
@@ -81,7 +91,7 @@ function App() {
             <Route element={<PrivateRoute />}>
               <Route path="/logout" element={<Logout />} />
             </Route>
-            <Route path="/recipes/:dishId" element={<DishDetails dishes={dishes} addComment={addComment} />} />
+            <Route path="/recipes/:dishId" element={<DishDetails dishes={dishes} addComment={addComment} dishRemove={dishRemove} />} />
 
           </Routes>
         </DishContext.Provider>

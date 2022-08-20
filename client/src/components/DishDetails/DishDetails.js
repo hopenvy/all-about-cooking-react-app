@@ -1,15 +1,19 @@
-import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthContext';
+import { DishContext } from '../../context/DishContext'
 
 import * as dishService from '../../services/dishService';
 
-const DishDetails = ({
-    addComment,
-}) => {
-    const { dishId } = useParams();
-    const [currentDish, setCurrentDish] = useState({});
+const DishDetails = ({ addComment, }) => {
 
+    const navigate = useNavigate();
+    //console.log(dishes)
+
+    const { dishId } = useParams();
+    const [currentDish, setCurrentDish] = useState([]);
+    const { user } = useAuthContext();
+    const { dishRemove } = useContext(DishContext);
 
     const [comment, setComment] = useState({
         username: '',
@@ -25,13 +29,12 @@ const DishDetails = ({
             });
     })
 
+
     const addCommentHandler = (e) => {
         e.preventDefault();
-
-        const result = `${comment.username}: ${comment.comment}`;
+        const result = `${comment.name}: ${comment.comment}`;
 
         addComment(dishId, result);
-
     }
 
     const onChange = (e) => {
@@ -41,7 +44,17 @@ const DishDetails = ({
         }));
     };
 
-    const { user } = useAuthContext();
+    const dishDeleteHandler = () => {
+        const confirm = window.confirm('Are you sure you want to delete your recipe?');
+        if (confirm) {
+            dishService.remove(dishId)
+                .then(() => {
+                    dishRemove(dishId);
+                    navigate('/recipes');
+                })
+        }
+    }
+
 
 
     return (
@@ -64,18 +77,19 @@ const DishDetails = ({
                         <label htmlFor="preparation">Preparation</label>
                         <p>{currentDish.preparation}</p>
 
+
                     </div>
                 </li>
             </ul>
             {
-                user.email
+                currentDish._ownerId === user._id
                     ? < div className="buttons">
-                        <Link to={`/dishes/${dishId}/edit`} className="button">
+                        <Link to={`/recipes/${dishId}/edit`} className="button">
                             Edit
                         </Link>
-                        <Link to="#" className="button">
+                        <button onClick={dishDeleteHandler} className="del-button">
                             Delete
-                        </Link>
+                        </button>
                     </div>
                     : < div className="buttons">
                         <Link to="/" className="button">
@@ -83,10 +97,18 @@ const DishDetails = ({
                         </Link>
                     </div>
             }
+
+
             <article className="create-comment">
                 <label>Add new comment:</label>
                 <form className="form-comment" onSubmit={addCommentHandler}>
-                    <p className="user-email">{user.email}</p>
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        onChange={onChange}
+                        value={comment.name}
+                    />
 
                     <textarea
                         name="comment"

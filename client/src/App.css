@@ -50,21 +50,7 @@
     text-align: left!important;
 }
 
-.details-button {
-    margin-top: 20px;
-    background: #485771;
-    height: 20px;
-    border-radius: 20px;
-    color: white;
-    padding-top: 20px;
-    padding-bottom: 60px;
-    font-size: 36px;
-    cursor: pointer;
-    box-shadow: 3px 3px 3px #cbced1, -6px -6px 6px rgb(218, 169, 121);
-    transition: 0.5s;
-    padding: 2px 20px !important;
-    
-}
+
 
 .details-button:hover{
     text-decoration: none;
