@@ -12,6 +12,7 @@ import Login from './components/Login/Login';
 import Logout from './components/Logout/Logout';
 import Recipes from './components/Recipes/Recipes';
 import CreateDish from './components/CreateDish/CreateDish';
+import EditDish from './components/EditDish/EditDish';
 import PrivateRoute from "./components/common/PrivateRoute";
 import DishDetails from "./components/DishDetails/DishDetails";
 //import uniqid from 'uniqid';
@@ -29,7 +30,7 @@ function App() {
   console.log(dishes)
   const navigate = useNavigate();
 
-  
+
   const addComment = (dishId, comment) => {
     setDishes(state => {
       const dish = state.find(x => x._id === dishId);
@@ -60,7 +61,9 @@ function App() {
       dishId,
     ]);
   }
-
+  const dishEdit = (dishId, dishData) => {
+    setDishes(state => state.map(x => x._id === dishId ? dishData : x));
+  }
 
   useEffect(() => {
     dishService.getAll()
@@ -75,7 +78,7 @@ function App() {
       <div className="App">
 
         <Header />
-        <DishContext.Provider value={{ dishes, dishAdd, dishRemove }}>
+        <DishContext.Provider value={{ dishes, dishAdd, dishEdit, dishRemove }}>
 
           <Routes>
             <Route path='/' element={<Home />} />
@@ -87,7 +90,7 @@ function App() {
               </Suspense>
             } />
             <Route path="/create" element={<CreateDish />} />
-
+            <Route path="/recipes/:dishId/edit" element={<EditDish />} />
             <Route element={<PrivateRoute />}>
               <Route path="/logout" element={<Logout />} />
             </Route>
