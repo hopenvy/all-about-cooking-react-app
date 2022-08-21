@@ -36,7 +36,7 @@
     background: #fff6e8;
     padding: 10px 800px 180px 10px;
     height: 60px;
-    margin-top: 10px;
+    margin: 15px 8px !important;
     font-size: 24px;
     border-radius: 20px;
     box-shadow: inset 3px 3px 3px #c0c2c5, inset -6px -6px 6px white;
@@ -93,10 +93,6 @@ button.del-button {
     transition: 0.5s;
 }
 
-.user-email {
-    font-size: 36px;
-    text-align: center;
-}
 
 .details label {
     text-align: left;
